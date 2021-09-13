@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import 'react-notifications/lib/notifications.css';
+
+import { createContext } from "react";
+import Router from "./components/Router";
 import './App.css';
 
+export const GlobalContext = createContext({});
+
 function App() {
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GlobalContext.Provider value={{ logOut }}>
+        <Router />
+      </GlobalContext.Provider>
     </div>
   );
 }
