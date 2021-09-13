@@ -21,7 +21,7 @@ export default function SectorForm({ onSubmit, sector, setSector }) {
                 <div>
                     <div>
                         <label htmlFor="name">Nombre&nbsp;*</label>
-                        <input type="text" id="name" placeholder="Introduzca el nombre" maxLenght="200" defaultValue={sector.nombre} required onInput={updateNombre}></input>
+                        <input type="text" id="name" placeholder="Introduzca el nombre" maxlenght="200" defaultValue={sector.nombre} required onInput={updateNombre}></input>
                     </div>
                 </div>
             </div>

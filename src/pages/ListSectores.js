@@ -64,7 +64,7 @@ export default function ListSectores() {
         })
             .then(modalResult => {
                 if (modalResult.isConfirmed) {
-                    remove(id);
+                    remove(parseInt(id));
                 }
             })
     }
@@ -97,6 +97,11 @@ export default function ListSectores() {
             });
     };
 
+    const openNewForm = e => {
+        e.preventDefault();
+        history.push('/sectores/new');
+    }
+
     return (
         <div>
             <NotificationContainer />
@@ -126,6 +131,7 @@ export default function ListSectores() {
                     })}
                 </tbody>
             </table>
+            <button onClick={openNewForm}>Crear&nbsp;nuevo&nbsp;sector</button>
             <ReactPaginate
                     pageCount={result.totalPages}
                     pageRangeDisplayed="5"

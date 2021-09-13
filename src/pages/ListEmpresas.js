@@ -64,7 +64,7 @@ export default function ListEmpresas() {
         })
             .then(modalResult => {
                 if (modalResult.isConfirmed) {
-                    remove(id);
+                    remove(parseInt(id));
                 }
             })
     }
@@ -96,6 +96,11 @@ export default function ListEmpresas() {
                 NotificationManager.error("Se ha producido un error, inténtelo de nuevo en unos segundos", "Error", 1000);
             });
     };
+
+    const openNewForm = e => {
+        e.preventDefault();
+        history.push('/empresas/new');
+    }
 
     return (
         <div>
@@ -132,6 +137,7 @@ export default function ListEmpresas() {
                     })}
                 </tbody>
             </table>
+            <button onClick={openNewForm}>Crear&nbsp;nueva&nbsp;empresa</button>
             <ReactPaginate
                     pageCount={result.totalPages}
                     pageRangeDisplayed="5"
