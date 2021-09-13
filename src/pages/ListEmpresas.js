@@ -102,13 +102,7 @@ export default function ListEmpresas() {
                         <th className="email">E-mail</th>
                         <th className="sector">Sector</th>
                         <th>Editar</th>
-                        {
-                            /*JSON.parse(localStorage.getItem('user')).admin ?
-                                <>
-                                    <th>Eliminar</th>
-                                </> :
-                                <></>*/
-                        }
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -122,13 +116,9 @@ export default function ListEmpresas() {
                                 <td className="action">
                                     <button className="button" id={element.id} value="Editar" onClick={showDetails}>Editar</button>
                                 </td>
-                                {
-                                    /*JSON.parse(localStorage.getItem('user')).admin ?
-                                        <td className="action">
-                                            <button className="button" id={element.id} value="Eliminar" onClick={showRemoveModal}>Eliminar</button>
-                                        </td>:
-                                        <></>*/
-                                }
+                                <td className="action">
+                                    <button className="button" id={element.id} value="Eliminar" onClick={showRemoveModal}>Editar</button>
+                                </td>
                             </tr>
                         );
                     })}
