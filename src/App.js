@@ -2,7 +2,7 @@ import 'react-notifications/lib/notifications.css';
 
 import { createContext } from "react";
 import Router from "./components/Router";
-import './App.css';
+import './App.sass';
 
 export const GlobalContext = createContext({});
 
@@ -13,7 +13,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="container-fluid">
       <GlobalContext.Provider value={{ logOut }}>
         <Router />
       </GlobalContext.Provider>

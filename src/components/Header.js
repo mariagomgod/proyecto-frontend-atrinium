@@ -15,15 +15,13 @@ export default function Header() {
     }
 
     return (
-        <>
-            <div>
-                <a href="/" onClick={navigate}>
-                    <img id="logo" src={logo} onClick={() => history.push('/')} alt="Acceder a la página principal" title="Acceder a la página principal" />
-                </a>
+        <header className="page-header header container-fluid d-flex justify-content-between">
+            <a href="/" onClick={navigate}>
+                <img id="logo" src={logo} onClick={() => history.push('/')} alt="Acceder a la página principal" title="Acceder a la página principal" />
+            </a>
+            <div className="align-self-center">
+                <button className="btn btn-dark" onClick={logOut}>Cerrar&nbsp;sesión</button>
             </div>
-            <div>
-                <button onClick={logOut}>Cerrar&nbsp;sesión</button>
-            </div>
-        </>
+        </header>
     )
 }

@@ -49,23 +49,17 @@ export default function Login() {
             <NotificationContainer />
             <div>
                 <h2>Iniciar&nbsp;sesión</h2>
-
                 <form onSubmit={login}>
-
-                    <div id="loginInputs">
-                        <div>
-                            <label htmlFor="emailInput">Email&nbsp;*</label>
-                            <input required type="email" name="email" placeholder="Introduce tu Email" maxLength="100" onInput={handleInput}></input>
-                        </div>
-
-                        <div>
-                            <label htmlFor="passwordInput">Contraseña&nbsp;*</label>
-                            <input required type="password" name="password" placeholder="********" maxLength="50" onInput={handleInput}></input>
-                        </div>
+                    <div className="form-group mb-3">
+                        <label className="form-label" htmlFor="emailInput">Email&nbsp;*</label>
+                        <input required type="email" className="form-control" name="email" placeholder="Introduce tu Email" maxLength="100" onInput={handleInput}></input>
                     </div>
-
-                    <div>
-                        <button type="submit">Iniciar&nbsp;sesión</button>
+                    <div className="form-group mb-3">
+                        <label className="form-label" htmlFor="passwordInput">Contraseña&nbsp;*</label>
+                        <input required type="password" className="form-control" name="password" placeholder="********" maxLength="50" onInput={handleInput}></input>
+                    </div>
+                    <div className="form-group mb-3">
+                        <button className="btn btn-primary" type="submit">Iniciar&nbsp;sesión</button>
                     </div>
                 </form>
             </div>

@@ -107,43 +107,56 @@ export default function ListEmpresas() {
             <NotificationContainer />
 
             <h2>Empresas existentes</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Teléfono</th>
-                        <th>E-mail</th>
-                        <th>Sector</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {result.pageResults?.map((element, index) => {
-                        return (
-                            <tr key={index}>
-                                <td>{element.nombre}</td>
-                                <td>{element.telefono}</td>
-                                <td>{element.email}</td>
-                                <td>{element.sector.nombre}</td>
-                                <td>
-                                    <button id={element.id} value="Editar" onClick={showDetails}>Editar</button>
-                                </td>
-                                <td>
-                                    <button id={element.id} value="Eliminar" onClick={showRemoveModal}>Eliminar</button>
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-            <button onClick={openNewForm}>Crear&nbsp;nueva&nbsp;empresa</button>
-            <ReactPaginate
-                    pageCount={result.totalPages}
-                    pageRangeDisplayed="5"
-                    marginPagesDisplayed="2"
-                    onPageChange={selectedItem => fetchNextPage(selectedItem.selected + 1)}
-            />
+            <div className="table-responsive">
+                <table className="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Sector</th>
+                            <th scope="col">Editar</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {result.pageResults?.map((element, index) => {
+                            return (
+                                <tr key={index}>
+                                    <th scope="row">{element.nombre}</th>
+                                    <td>{element.telefono}</td>
+                                    <td>{element.email}</td>
+                                    <td>{element.sector.nombre}</td>
+                                    <td>
+                                        <button className="btn btn-primary" id={element.id} value="Editar" onClick={showDetails}>Editar</button>
+                                    </td>
+                                    <td>
+                                        <button className="btn btn-secondary" id={element.id} value="Eliminar" onClick={showRemoveModal}>Eliminar</button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+            <div className="d-flex justify-content-between mb-3">
+                <button className="btn btn-primary self-align-center" onClick={openNewForm}>Crear&nbsp;nueva&nbsp;empresa</button>
+                <nav>
+                    <ReactPaginate
+                            containerClassName="pagination mb-0"
+                            pageClassName="page-item"
+                            pageLinkClassName="page-link"
+                            previousClassName="page-item"
+                            previousLinkClassName="page-link"
+                            nextClassName="page-item"
+                            nextLinkClassName="page-link"
+                            pageCount={result.totalPages}
+                            page RangeDisplayed="5"
+                            marginPagesDisplayed="2"
+                            onPageChange={selectedItem => fetchNextPage(selectedItem.selected + 1)}
+                    />
+                </nav>
+            </div>
         </div>
     )
 }

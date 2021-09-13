@@ -103,41 +103,52 @@ export default function ListSectores() {
     }
 
     return (
-        <div>
+        <>
             <NotificationContainer />
 
             <h2>Sectores existentes</h2>
-            <table>
+            <table className="table table-striped table-responsive-sm">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
                     {result.pageResults?.map((element, index) => {
                         return (
                             <tr key={index}>
-                                <td>{element.nombre}</td>
+                                <th scope="row">{element.nombre}</th>
                                 <td>
-                                    <button id={element.id} value="Editar" onClick={showDetails}>Editar</button>
+                                    <button className="btn btn-primary" id={element.id} value="Editar" onClick={showDetails}>Editar</button>
                                 </td>
                                 <td>
-                                    <button id={element.id} value="Eliminar" onClick={showRemoveModal}>Eliminar</button>
+                                    <button className="btn btn-secondary"  id={element.id} value="Eliminar" onClick={showRemoveModal}>Eliminar</button>
                                 </td>
                             </tr>
                         );
                     })}
                 </tbody>
             </table>
-            <button onClick={openNewForm}>Crear&nbsp;nuevo&nbsp;sector</button>
-            <ReactPaginate
-                    pageCount={result.totalPages}
-                    pageRangeDisplayed="5"
-                    marginPagesDisplayed="2"
-                    onPageChange={selectedItem => fetchNextPage(selectedItem.selected + 1)}
-            />
-        </div>
+            <div className="d-flex justify-content-between mb-3">
+                <button className="btn btn-primary self-align-center" onClick={openNewForm}>Crear&nbsp;nuevo&nbsp;sector</button>
+                <nav>
+                    <ReactPaginate
+                            containerClassName="pagination mb-0"
+                            pageClassName="page-item"
+                            pageLinkClassName="page-link"
+                            previousClassName="page-item"
+                            previousLinkClassName="page-link"
+                            nextClassName="page-item"
+                            nextLinkClassName="page-link"
+                            pageCount={result.totalPages}
+                            page RangeDisplayed="5"
+                            marginPagesDisplayed="2"
+                            onPageChange={selectedItem => fetchNextPage(selectedItem.selected + 1)}
+                    />
+                </nav>
+            </div>
+        </>
     )
 }
