@@ -8,16 +8,16 @@ export default function SectorForm({ onSubmit, sector, setSector }) {
 
     return (
         <form onSubmit={onSubmit}>
-            <div className="form-section">
+            <div>
                 <h5>Los campos marcados con * son obligatorios</h5>
-                <div className="form-group">
-                    <div className="control">
+                <div>
+                    <div>
                         <label htmlFor="name">Nombre&nbsp;*</label>
-                        <input type="text" className="form-control" id="name" placeholder="Introduzca el nombre" maxLenght="200" defaultValue={sector.nombre} required onInput={updateNombre}></input>
+                        <input type="text" id="name" placeholder="Introduzca el nombre" maxLenght="200" defaultValue={sector.nombre} required onInput={updateNombre}></input>
                     </div>
                 </div>
             </div>
-            <button type="submit" className="button">Enviar</button>
+            <button type="submit">Enviar</button>
         </form>
     )
 }

@@ -8,11 +8,13 @@ import EditEmpresa from "../pages/EditEmpresa";
 import ListSectores from "../pages/ListSectores";
 import NewSector from "../pages/NewSector";
 import EditSector from "../pages/EditSector";
+import Header from "./Header";
 
 export default function Router() {
 
     return (
         <BrowserRouter>
+            <Header />
             <div id="main-content">
                 <Switch>
 
@@ -29,6 +31,10 @@ export default function Router() {
                     <Route exact path="/sectores/new" component={NewSector} />
                     <Route exact path="/sectores/edit/:id" component={EditSector} />
                     <Route exact path="/sectores" component={ListSectores} />
+
+                    <Route exact path="/">
+                        <Redirect to="/empresas" />
+                    </Route>
 
                     <Route component={Error} />
                 </Switch>

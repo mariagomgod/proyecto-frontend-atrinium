@@ -1,39 +1,40 @@
 
 export default function EmpresaForm({ onSubmit, empresa, setEmpresa }) {
 
-    function updateField(e, field) {
-        const input = e.target.value;
+    function updateField(e) {
+        const field = e.target.id;
+        const value = e.target.value;
         setEmpresa(currentEmpresa => {
             const newEmpresa = { ...currentEmpresa };
-            newEmpresa[field] = input;
+            newEmpresa[field] = value;
             return newEmpresa;
         });
     }
 
     return (
         <form onSubmit={onSubmit}>
-            <div className="form-section">
+            <div>
                 <h5>Los campos marcados con * son obligatorios</h5>
-                <div className="form-group">
-                    <div className="control">
-                        <label htmlFor="name">Nombre&nbsp;*</label>
-                        <input type="text" className="form-control" id="name" placeholder="Introduzca el nombre" maxLenght="200" defaultValue={empresa.nombre} required onInput={e => updateField(e, "nombre")}></input>
+                <div>
+                    <div>
+                        <label htmlFor="nombre">Nombre&nbsp;*</label>
+                        <input type="text" id="nombre" placeholder="Introduzca el nombre" maxLenght="200" defaultValue={empresa.nombre} required onInput={updateField}></input>
                     </div>
-                    <div className="control">
-                        <label htmlFor="telephone">Teléfono&nbsp;*</label>
-                        <input type="text" className="form-control" id="telephone" placeholder="Introduzca el teléfono" maxLenght="20" defaultValue={empresa.telefono} required onInput={e => updateField(e, "telefono")}></input>
+                    <div>
+                        <label htmlFor="telefono">Teléfono&nbsp;*</label>
+                        <input type="text" id="telefono" placeholder="Introduzca el teléfono" maxLenght="20" defaultValue={empresa.telefono} required onInput={updateField}></input>
                     </div>
-                    <div className="control">
+                    <div>
                         <label htmlFor="email">E-mail&nbsp;*</label>
-                        <input type="email" className="form-control" id="email" placeholder="Introduzca el e-mail" maxLenght="100" defaultValue={empresa.email} required onInput={e => updateField(e, "email")}></input>
+                        <input type="email" id="email" placeholder="Introduzca el e-mail" maxLenght="100" defaultValue={empresa.email} required onInput={updateField}></input>
                     </div>
-                    <div className="control">
+                    <div>
                         <label htmlFor="sector">Sector&nbsp;*</label>
-                        <input type="text" className="form-control" id="sector" placeholder="Introduzca el sector" maxLenght="20" defaultValue={empresa.sector} required onInput={e => updateField(e, "sector")}></input>
+                        <input type="text" id="sector" placeholder="Introduzca el sector" maxLenght="20" defaultValue={empresa.sector} required onInput={updateField}></input>
                     </div>
                 </div>
             </div>
-            <button type="submit" className="button">Enviar</button>
+            <button type="submit">Enviar</button>
         </form>
     )
 }

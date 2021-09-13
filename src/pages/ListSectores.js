@@ -2,7 +2,6 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import { useState, useEffect, useContext } from 'react';
 import { BASE_API_URL } from "../config/config";
 import { useHistory } from 'react-router-dom';
-import './ListSectores.css';
 import Swal from 'sweetalert2';
 import { GlobalContext } from '../App';
 
@@ -90,14 +89,14 @@ export default function ListSectores() {
     };
 
     return (
-        <div id="list">
+        <div>
             <NotificationContainer />
 
-            <h2 className="title">Sectores existentes</h2>
+            <h2>Sectores existentes</h2>
             <table>
                 <thead>
                     <tr>
-                        <th className="name">Nombre</th>
+                        <th>Nombre</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -106,12 +105,12 @@ export default function ListSectores() {
                     {list?.map((element, index) => {
                         return (
                             <tr key={index}>
-                                <td className="name">{element.nombre}</td>
-                                <td className="action">
-                                    <button className="button" id={element.id} value="Editar" onClick={showDetails}>Editar</button>
+                                <td>{element.nombre}</td>
+                                <td>
+                                    <button id={element.id} value="Editar" onClick={showDetails}>Editar</button>
                                 </td>
-                                <td className="action">
-                                    <button className="button" id={element.id} value="Eliminar" onClick={showRemoveModal}>Editar</button>
+                                <td>
+                                    <button id={element.id} value="Eliminar" onClick={showRemoveModal}>Eliminar</button>
                                 </td>
                             </tr>
                         );

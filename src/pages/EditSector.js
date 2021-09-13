@@ -73,7 +73,7 @@ export default function EditSector() {
     }
 
     return (
-        <div className="form-wrapper">
+        <div>
             <NotificationContainer />
 
             <h2>Editar sector</h2>

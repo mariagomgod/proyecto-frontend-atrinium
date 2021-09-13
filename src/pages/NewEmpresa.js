@@ -46,7 +46,7 @@ export default function NewEmpresa() {
     }
 
     return (
-        <div className="form-wrapper">
+        <div>
             <NotificationContainer />
 
             <h2>Nueva empresa</h2>

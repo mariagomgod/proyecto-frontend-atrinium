@@ -2,7 +2,6 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import { useState, useEffect, useContext } from 'react';
 import { BASE_API_URL } from "../config/config";
 import { useHistory } from 'react-router-dom';
-import './ListEmpresas.css';
 import Swal from 'sweetalert2';
 import { GlobalContext } from '../App';
 
@@ -90,17 +89,17 @@ export default function ListEmpresas() {
     };
 
     return (
-        <div id="list">
+        <div>
             <NotificationContainer />
 
-            <h2 className="title">Empresas existentes</h2>
+            <h2>Empresas existentes</h2>
             <table>
                 <thead>
                     <tr>
-                        <th className="name">Nombre</th>
-                        <th className="telephone">Teléfono</th>
-                        <th className="email">E-mail</th>
-                        <th className="sector">Sector</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>E-mail</th>
+                        <th>Sector</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -109,15 +108,15 @@ export default function ListEmpresas() {
                     {list?.map((element, index) => {
                         return (
                             <tr key={index}>
-                                <td className="name">{element.nombre}</td>
-                                <td className="telephone">{element.telefono}</td>
-                                <td className="email">{element.email}</td>
-                                <td className="sector">{element.sector.nombre}</td>
-                                <td className="action">
-                                    <button className="button" id={element.id} value="Editar" onClick={showDetails}>Editar</button>
+                                <td>{element.nombre}</td>
+                                <td>{element.telefono}</td>
+                                <td>{element.email}</td>
+                                <td>{element.sector.nombre}</td>
+                                <td>
+                                    <button id={element.id} value="Editar" onClick={showDetails}>Editar</button>
                                 </td>
-                                <td className="action">
-                                    <button className="button" id={element.id} value="Eliminar" onClick={showRemoveModal}>Editar</button>
+                                <td>
+                                    <button id={element.id} value="Eliminar" onClick={showRemoveModal}>Eliminar</button>
                                 </td>
                             </tr>
                         );

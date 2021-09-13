@@ -73,7 +73,7 @@ export default function EditEmpresa() {
     }
 
     return (
-        <div className="form-wrapper">
+        <div>
             <NotificationContainer />
 
             <h2>Editar empresa</h2>

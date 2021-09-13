@@ -46,7 +46,7 @@ export default function NewSector() {
     }
 
     return (
-        <div className="form-wrapper">
+        <div>
             <NotificationContainer />
 
             <h2>Nuevo sector</h2>
