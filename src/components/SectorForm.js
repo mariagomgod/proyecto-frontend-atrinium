@@ -1,9 +1,17 @@
+import { useHistory } from 'react-router-dom';
 
 export default function SectorForm({ onSubmit, sector, setSector }) {
+
+    const history = useHistory();
 
     function updateNombre(e) {
         const input = e.target.value;
         setSector({ nombre: input });
+    }
+
+    const goBack = e => {
+        e.preventDefault();
+        history.goBack();
     }
 
     return (
@@ -18,6 +26,7 @@ export default function SectorForm({ onSubmit, sector, setSector }) {
                 </div>
             </div>
             <button type="submit">Enviar</button>
+            <button onClick={goBack}>Cancelar</button>
         </form>
     )
 }

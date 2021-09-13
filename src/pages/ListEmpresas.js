@@ -1,28 +1,29 @@
 import { NotificationContainer, NotificationManager } from 'react-notifications';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import { BASE_API_URL } from "../config/config";
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { GlobalContext } from '../App';
+import ReactPaginate from 'react-paginate';
 
 export default function ListEmpresas() {
 
-    const [list, setList] = useState([]);
+    const [result, setResult] = useState([]);
 
     const history = useHistory();
 
     const { logOut } = useContext(GlobalContext);
 
-    useEffect(() => {
-        fetch(`${BASE_API_URL}/empresas`, {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("token")}`
-            }
-        })
+    const fetchNextPage = useCallback(pageNumber => {
+        fetch(`${BASE_API_URL}/empresas?page=${pageNumber}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                }
+            })
             .then(response => {
                 if (response.ok) {
                     response.json()
-                        .then(data => setList(data.pageResults));
+                        .then(setResult);
                 } else if (response.status === 401) {
                     NotificationManager.warning("La sesión ha expirado. Redirigiendo a la página de inicio de sesión...", "Advertencia", 3000);
                     setTimeout(logOut, 3000);
@@ -33,7 +34,10 @@ export default function ListEmpresas() {
             .catch(() => {
                 NotificationManager.error("Se ha producido un error, inténtelo de nuevo en unos segundos", "Error", 1000);
             });
-    }, [history, logOut]);
+        }, [logOut]
+    );
+
+    useEffect(() => fetchNextPage(1), [fetchNextPage]);
 
     const showDetails = e => {
         const id = e.target.id;
@@ -58,8 +62,8 @@ export default function ListEmpresas() {
             focusConfirm: false,
             focusCancel: true
         })
-            .then(result => {
-                if (result.isConfirmed) {
+            .then(modalResult => {
+                if (modalResult.isConfirmed) {
                     remove(id);
                 }
             })
@@ -74,7 +78,12 @@ export default function ListEmpresas() {
         })
             .then(response => {
                 if (response.ok) {
-                    setList(currentList => currentList.filter(element => element.id !== id));
+                    setResult(currentResult => {
+                        const newPageResults = currentResult.pageResults.filter(element => element.id !== id);
+                        const newResult = {...currentResult};
+                        newResult.pageResults = newPageResults;
+                        return newResult;
+                    });
                     NotificationManager.success("Empresa eliminada con éxito", "Eliminada", 1000);
                 } else if (response.status === 401) {
                     NotificationManager.warning("La sesión ha expirado. Redirigiendo a la página de inicio de sesión...", "Advertencia", 3000);
@@ -105,7 +114,7 @@ export default function ListEmpresas() {
                     </tr>
                 </thead>
                 <tbody>
-                    {list?.map((element, index) => {
+                    {result.pageResults?.map((element, index) => {
                         return (
                             <tr key={index}>
                                 <td>{element.nombre}</td>
@@ -123,6 +132,12 @@ export default function ListEmpresas() {
                     })}
                 </tbody>
             </table>
+            <ReactPaginate
+                    pageCount={result.totalPages}
+                    pageRangeDisplayed="5"
+                    marginPagesDisplayed="2"
+                    onPageChange={selectedItem => fetchNextPage(selectedItem.selected + 1)}
+            />
         </div>
     )
 }

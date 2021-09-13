@@ -56,10 +56,13 @@ export default function EditSector() {
         ).then(response => {
             if (response.ok) {
                 NotificationManager.success("Sector modificado con éxito", "Éxito", 1000);
+                setTimeout(() => history.goBack(), 1000);
             } else {
                     if (response.status === 401) {
                         NotificationManager.warning("La sesión ha expirado. Redirigiendo a la página de inicio de sesión...", "Advertencia", 3000);
                         setTimeout(logOut, 3000);
+                    } else if (response.status === 409) {
+                        NotificationManager.warning("El sector ya existe", "Advertencia", 1000);
                     } else if (response.status >= 400 && response.status < 500) {
                         NotificationManager.warning("Por favor, revise el formulario", "Advertencia", 1000);
                     } else {

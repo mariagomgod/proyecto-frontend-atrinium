@@ -1,7 +1,10 @@
+import { useHistory } from 'react-router-dom';
 
 export default function EmpresaForm({ onSubmit, empresa, setEmpresa }) {
 
-    function updateField(e) {
+    const history = useHistory();
+
+    const updateField = e => {
         const field = e.target.id;
         const value = e.target.value;
         setEmpresa(currentEmpresa => {
@@ -9,6 +12,11 @@ export default function EmpresaForm({ onSubmit, empresa, setEmpresa }) {
             newEmpresa[field] = value;
             return newEmpresa;
         });
+    }
+
+    const goBack = e => {
+        e.preventDefault();
+        history.goBack();
     }
 
     return (
@@ -21,12 +29,12 @@ export default function EmpresaForm({ onSubmit, empresa, setEmpresa }) {
                         <input type="text" id="nombre" placeholder="Introduzca el nombre" maxLenght="200" defaultValue={empresa.nombre} required onInput={updateField}></input>
                     </div>
                     <div>
-                        <label htmlFor="telefono">Teléfono&nbsp;*</label>
-                        <input type="text" id="telefono" placeholder="Introduzca el teléfono" maxLenght="20" defaultValue={empresa.telefono} required onInput={updateField}></input>
+                        <label htmlFor="telefono">Teléfono</label>
+                        <input type="text" id="telefono" placeholder="Introduzca el teléfono" maxLenght="20" defaultValue={empresa.telefono} onInput={updateField}></input>
                     </div>
                     <div>
-                        <label htmlFor="email">E-mail&nbsp;*</label>
-                        <input type="email" id="email" placeholder="Introduzca el e-mail" maxLenght="100" defaultValue={empresa.email} required onInput={updateField}></input>
+                        <label htmlFor="email">E-mail</label>
+                        <input type="email" id="email" placeholder="Introduzca el e-mail" maxLenght="100" defaultValue={empresa.email} onInput={updateField}></input>
                     </div>
                     <div>
                         <label htmlFor="sector">Sector&nbsp;*</label>
@@ -35,6 +43,7 @@ export default function EmpresaForm({ onSubmit, empresa, setEmpresa }) {
                 </div>
             </div>
             <button type="submit">Enviar</button>
+            <button onClick={goBack}>Cancelar</button>
         </form>
     )
 }

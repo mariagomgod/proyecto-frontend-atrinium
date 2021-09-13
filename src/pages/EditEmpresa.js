@@ -56,6 +56,7 @@ export default function EditEmpresa() {
         ).then(response => {
             if (response.ok) {
                 NotificationManager.success("Empresa modificada con éxito", "Éxito", 1000);
+                setTimeout(() => history.goBack(), 1000);
             } else {
                     if (response.status === 401) {
                         NotificationManager.warning("La sesión ha expirado. Redirigiendo a la página de inicio de sesión...", "Advertencia", 3000);

@@ -3,11 +3,13 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import { BASE_API_URL } from "../config/config";
 import EmpresaForm from '../components/EmpresaForm';
 import { GlobalContext } from '../App';
+import { useHistory } from 'react-router-dom';
 
 export default function NewEmpresa() {
 
     const [empresa, setEmpresa] = useState({});
     const { logOut } = useContext(GlobalContext);
+    const history = useHistory();
 
     function submit(e) {
 
@@ -29,6 +31,7 @@ export default function NewEmpresa() {
             if (response.ok) {
                 form.reset();
                 NotificationManager.success("Empresa añadida con éxito.", "Éxito", 3000);
+                setTimeout(() => history.goBack(), 3000);
             } else {
                 if (response.status === 401) {
                     NotificationManager.warning("La sesión ha expirado. Redirigiendo a la página de inicio de sesión...", "Advertencia", 3000);

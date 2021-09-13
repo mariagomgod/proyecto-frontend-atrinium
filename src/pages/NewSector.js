@@ -3,11 +3,13 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import { BASE_API_URL } from "../config/config";
 import SectorForm from '../components/SectorForm';
 import { GlobalContext } from '../App';
+import { useHistory } from 'react-router-dom';
 
 export default function NewSector() {
 
     const [sector, setSector] = useState({});
     const { logOut } = useContext(GlobalContext);
+    const history = useHistory();
 
     function submit(e) {
 
@@ -29,10 +31,13 @@ export default function NewSector() {
             if (response.ok) {
                 form.reset();
                 NotificationManager.success("Sector añadido con éxito.", "Éxito", 3000);
+                setTimeout(() => history.goBack(), 3000);
             } else {
                 if (response.status === 401) {
                     NotificationManager.warning("La sesión ha expirado. Redirigiendo a la página de inicio de sesión...", "Advertencia", 3000);
                     setTimeout(logOut, 3000);
+                } else if (response.status === 409) {
+                    NotificationManager.warning("El sector ya existe", "Advertencia", 1000);
                 } else if (response.status >= 400 && response.status < 500) {
                     NotificationManager.warning("Por favor, revise el formulario", "Advertencia", 2000);
                 } else {
