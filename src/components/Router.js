@@ -1,6 +1,5 @@
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Login from "../pages/Login";
 import Error from "../pages/Error";
 import ListEmpresas from "../pages/ListEmpresas";
 import NewEmpresa from "../pages/NewEmpresa";
@@ -16,28 +15,20 @@ export default function Router() {
     return (
         <BrowserRouter>
             <Header />
-            <div id="main-content">
-                <Switch>
+            <Switch>
 
-                    <Route exact path="/login" render={() => {
-                        return localStorage.getItem("user") ?
-                            <Redirect to="/" /> :
-                            <Login />;
-                    }} />
+                <Route exact path="/empresas/new" component={NewEmpresa} />
+                <Route exact path="/empresas/edit/:id" component={EditEmpresa} />
+                <Route exact path="/empresas" component={ListEmpresas} />
 
-                    <Route exact path="/empresas/new" component={NewEmpresa} />
-                    <Route exact path="/empresas/edit/:id" component={EditEmpresa} />
-                    <Route exact path="/empresas" component={ListEmpresas} />
+                <Route exact path="/sectores/new" component={NewSector} />
+                <Route exact path="/sectores/edit/:id" component={EditSector} />
+                <Route exact path="/sectores" component={ListSectores} />
 
-                    <Route exact path="/sectores/new" component={NewSector} />
-                    <Route exact path="/sectores/edit/:id" component={EditSector} />
-                    <Route exact path="/sectores" component={ListSectores} />
+                <Route exact path="/" component={Main} />
 
-                    <Route exact path="/" component={Main} />
-
-                    <Route component={Error} />
-                </Switch>
-            </div>
+                <Route component={Error} />
+            </Switch>
         </BrowserRouter>
     )
 }

@@ -9,11 +9,7 @@ export default function EmpresaForm({ onSubmit, empresa, setEmpresa }) {
     const [sectores, setSectores] = useState([]);
 
     useEffect(() => {
-        fetch(`${BASE_API_URL}/sectores?all=true`, {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("token")}`
-            }
-        })
+        fetch(`${BASE_API_URL}/sectores?all=true`)
         .then(response => {
             if (response.ok) {
                 response.json()

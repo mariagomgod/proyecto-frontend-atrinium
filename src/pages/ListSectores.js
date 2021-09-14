@@ -1,9 +1,8 @@
 import { NotificationContainer, NotificationManager } from 'react-notifications';
-import { useState, useEffect, useContext, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { BASE_API_URL } from "../config/config";
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { GlobalContext } from '../App';
 import ReactPaginate from 'react-paginate';
 
 export default function ListSectores() {
@@ -12,21 +11,12 @@ export default function ListSectores() {
 
     const history = useHistory();
 
-    const { logOut } = useContext(GlobalContext);
-
     const fetchNextPage = useCallback(pageNumber => {
-        fetch(`${BASE_API_URL}/sectores?page=${pageNumber}`, {
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`
-                }
-            })
+        fetch(`${BASE_API_URL}/sectores?page=${pageNumber}`)
             .then(response => {
                 if (response.ok) {
                     response.json()
                        .then(setResult);
-                } else if (response.status === 401) {
-                    NotificationManager.warning("La sesión ha expirado. Redirigiendo a la página de inicio de sesión...", "Advertencia", 3000);
-                    setTimeout(logOut, 3000);
                 } else {
                     NotificationManager.error("Se ha producido un error, inténtelo de nuevo en unos segundos", "Error", 1000);
                 }
@@ -34,7 +24,7 @@ export default function ListSectores() {
             .catch(() => {
                 NotificationManager.error("Se ha producido un error, inténtelo de nuevo en unos segundos", "Error", 1000);
             });
-        }, [logOut]
+        }, []
     );
 
     useEffect(() => fetchNextPage(1), [fetchNextPage]);
@@ -70,12 +60,7 @@ export default function ListSectores() {
     }
 
     const remove = id => {
-        fetch(`${BASE_API_URL}/sectores/${id}`, {
-            method: 'DELETE',
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("token")}`
-            }
-        })
+        fetch(`${BASE_API_URL}/sectores/${id}`)
             .then(response => {
                 if (response.ok) {
                     setResult(currentResult => {
@@ -85,9 +70,6 @@ export default function ListSectores() {
                         return newResult;
                     });
                     NotificationManager.success("Sector eliminado con éxito", "Eliminado", 1000);
-                } else if (response.status === 401) {
-                    NotificationManager.warning("La sesión ha expirado. Redirigiendo a la página de inicio de sesión...", "Advertencia", 3000);
-                    setTimeout(logOut, 3000);
                 } else {
                     NotificationManager.error("Se ha producido un error, inténtelo de nuevo en unos segundos", "Error", 1000);
                 }
